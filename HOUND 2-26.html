@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+   
+<head>
+    
+    <meta charset="UTF-8">
+    <title>Hound 2-26</title>
+    
+<!--// feb 26 2018 -->   
+      
+      
+<!--     ************** leaflet plugins*********-->
+    <link rel="stylesheet" href="src/leaflet.css">
+    <script src="src/leaflet-src.js"></script>  
+      
+<!--     ************** Bootstrap plugins*********-->  
+    <link rel="stylesheet" href="src/css/bootstrap.css">
+  
+<!--     ************** Jquery plugins*********-->     
+    <script src="src/jquery-3.2.0.min.js"></script> 
+        
+<!--     ************** PolyMeasure*********-->     
+    <link rel="stylesheet" href="plugins/Leaflet.PolylineMeasure.css">
+    <script src="plugins/Leaflet.PolylineMeasure.js"></script>
+         
+<!--     ************** Side Bar*********--> 
+    <link rel="stylesheet" href="plugins/L.Control.Sidebar.css">
+    <script src="plugins/L.Control.Sidebar.js"></script>
+<!--     ************** Easy Button*********-->       
+            
+    <link rel="stylesheet" href="plugins/easy-button.css">
+    <script src="plugins/easy-button.js"></script>
+
+    <!--   // map stay same size as window with "100vh"-->
+     <style> #map { height:100vh; } </style>
+
+</head>
+
+
+
+<body>
+  
+<!--     ************** Side Bar*********--> 
+    <div id ="side-bar" class="col-md-1">
+   
+        
+<!--     ************** Buttons********* -->
+        <button id='btnMeasure'> Measure</button>
+        <button id='btnLayers'> Layers</button>
+    </div>
+        
+     <div id="map" class="col-md-12"></div>
+    
+   
+<script>
+    
+//<!--     ************** Initial Variables *********--> 
+      var map;
+      var basemap1;
+      var baselayers;
+      var ctlAttribute; // variable to add logo attribute
+      var ctlMeasure;
+      var ctlSidebar;
+      var ctlEasybutton;
+      var ctlMeasure;
+      var ctlLayer; 
+  
+//   **************Maps*********
+      var maps1= 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}';
+      var maps2= 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}';
+       
+ 
+//   ************** Base Maps*********
+   
+        // map layers, goal to have multiple layers
+        //map1
+         basemap1=L.tileLayer(maps1, {attribution: false}),
+        //map2
+         basemap2=L.tileLayer(maps2, {attribution: false, maxZoom: 8});
+        
+//   **************Map Initial Condition*********  
+    map= L.map('map',{center:[33.9164,-118.3526],zoom:13, layers: [basemap1], attributionControl:false, zoomControl:false, dragging:true});
+   
+   
+    
+//   **************Map Drop Down List*********   
+     baseLayers = {"Map 1": basemap1, "Map 2": basemap2};
+    
+//   **************Logo Placement and Image*********  
+    ctlAttribute= L.control.attribution({position: 'bottomleft'}).addTo(map);
+    ctlAttribute.addAttribution("<img src='img/you sit.jpg' width='50px'>");
+    
+  
+//   **************Controllers*********  
+    ctlEasybutton=L.easyButton('glyphicon glyphicon-log-out', function() {ctlSidebar.toggle();}).addTo(map);
+    ctlSidebar=L.control.sidebar('side-bar').addTo(map); 
+    ctlMeasure = L.control.polylineMeasure().addTo(map);
+    ctlLayer = L.control.layers(baseLayers).addTo(map);
+  
+//   **************Buttons*********    
+    
+    $("#btnMeasure").click(function(){
+
+       var marker = L.marker([33.9164,-118.3526]).addTo(map);
+        
+    });
+     
+   
+    $("#btnLayers").click(function(){
+
+        var marker = L.marker([33.9164,-118.3526]).addTo(map);
+            
+   });
+    
+</script> 
+   
+      
+    
+</body>
+</html>
